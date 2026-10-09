@@ -1,7 +1,7 @@
-import userModel from "../models/user.model";
+const userModel = require( "../models/user.model.js")
 const jwt = require("jsonwebtoken");
 
-export const googleAuth = async (req, res) => {
+const googleAuth = async (req, res) => {
   try {
     const { name, email, avatar } = req.body;
     if (!email) {
@@ -34,7 +34,7 @@ export const googleAuth = async (req, res) => {
   }
 };
 
-export const logOut = async (req, res) => {
+const logOut = async (req, res) => {
   try {
     return res.clearCookie("token", {
       httpOnly: true,
@@ -47,3 +47,8 @@ export const logOut = async (req, res) => {
     });
   }
 };
+
+module.exports = {
+  googleAuth,
+  logOut
+}
