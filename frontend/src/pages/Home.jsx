@@ -1,6 +1,10 @@
 import * as motion from "motion/react-client";
+import LoginModal from "../components/LoginModal";
+import { useState } from "react";
 
 const Home = () => {
+  const [openModal, setOpenModal] = useState(false)
+  
   const highlights = [
     {
       title: "AI Generated Videos",
@@ -55,7 +59,8 @@ const Home = () => {
           Describe your idea and let AI generate a modern, responsive,
           production-ready website.
         </motion.p>
-        <button className="px-10 py-4 rounded-xl bg-white text-black font-semibold hover:scale-105 transition mt-10">
+        <button className="px-10 py-4 rounded-xl bg-white text-black font-semibold hover:scale-105 transition mt-10"
+        onClick={()=>setOpenModal(true)}>
           Get Started
         </button>
       </section>
@@ -70,10 +75,16 @@ const Home = () => {
               className="rounded-2xl bg-white/5 border border-white/10 p-8">
               <h1 className="text-xl font-semibold mb-3">{topics.title}</h1>
               <p className="text-sm text-zinc-400">{topics.description}</p>
-            </motion.div>;
+            </motion.div>
           })}
         </div>
       </section>
+
+      <footer>
+        &copy; {new Date().getFullYear()} SiteCraft AI
+      </footer>
+
+     {openModal && <LoginModal openmod={openModal} onClose={()=>setOpenModal(false)} />}
     </div>
   );
 };
