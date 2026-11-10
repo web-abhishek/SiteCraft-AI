@@ -7,7 +7,7 @@ const LoginModal = ({openmod, onClose}) => {
     const handleGoogleAuth = async ()=>{
         try{
             const result = await signInWithPopup(auth, provider)
-            console.log(result)
+            console.log(result?.user?.displayName)
         }
         catch(error){
             console.log(error)
@@ -28,7 +28,7 @@ const LoginModal = ({openmod, onClose}) => {
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.9, opacity: 0, y: 40 }}
           transition={{ duration: 0.45, ease: "easeOut" }}
-          className="relative w-full max-w-md p-[1px] rounded-3xl bg-gradient-to-br from-purple-500/40 via-blue-500/30 
+          className="relative w-full max-w-md p-px rounded-3xl bg-linear-to-br from-purple-500/40 via-blue-500/30 
             to-transparent"
             onClick={(e)=>e.stopPropagation()}
         >
