@@ -7,7 +7,7 @@ const LoginModal = ({openmod, onClose}) => {
     const handleGoogleAuth = async ()=>{
         try{
             const result = await signInWithPopup(auth, provider)
-            console.log(result?.user?.displayName)
+            console.log(result)
         }
         catch(error){
             console.log(error)
