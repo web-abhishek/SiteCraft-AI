@@ -33,7 +33,7 @@ const Home = () => {
             <div className="hidden md:inline text-sm text-zinc-400 hover:text-white cursor-pointer">
               Pricing
             </div>
-            <button className="px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10 text-sm">
+            <button className="px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10 text-sm cursor-pointer" onClick={()=>setOpenModal(true)}>
               Get Started
             </button>
           </div>
@@ -59,7 +59,7 @@ const Home = () => {
           Describe your idea and let AI generate a modern, responsive,
           production-ready website.
         </motion.p>
-        <button className="px-10 py-4 rounded-xl bg-white text-black font-semibold hover:scale-105 transition mt-10"
+        <button className="px-10 py-4 rounded-xl bg-white text-black font-semibold hover:scale-105 transition mt-10 cursor-pointer"
         onClick={()=>setOpenModal(true)}>
           Get Started
         </button>
