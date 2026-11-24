@@ -1,10 +1,13 @@
 import * as motion from "motion/react-client";
 import LoginModal from "../components/LoginModal";
 import { useState } from "react";
+import { useSelector } from 'react-redux';
 
 const Home = () => {
   const [openModal, setOpenModal] = useState(false)
   
+  const userData = useSelector((store)=>store.user.userData);
+
   const highlights = [
     {
       title: "AI Generated Videos",
@@ -19,6 +22,8 @@ const Home = () => {
       description: "Build modern, responsive websites with AI.",
     }
   ];
+
+
   return (
     <div className="relative min-h-screen bg-[#040404] text-white overflow-hidden">
       <motion.div
@@ -33,9 +38,15 @@ const Home = () => {
             <div className="hidden md:inline text-sm text-zinc-400 hover:text-white cursor-pointer">
               Pricing
             </div>
-            <button className="px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10 text-sm cursor-pointer" onClick={()=>setOpenModal(true)}>
+
+          
+
+         {!userData ? <button className="px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10 text-sm cursor-pointer" onClick={()=>setOpenModal(true)}>
               Get Started
             </button>
+            : <div>
+                <img src={userData.avatar || `https://ui-avatars.com/api/?name=${userData.name}`}/>
+              </div>}
           </div>
         </div>
       </motion.div>
