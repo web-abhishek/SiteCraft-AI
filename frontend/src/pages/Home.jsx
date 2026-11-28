@@ -1,12 +1,13 @@
 import * as motion from "motion/react-client";
 import LoginModal from "../components/LoginModal";
 import { useState } from "react";
-import { useSelector } from 'react-redux';
-
+import { useSelector } from "react-redux";
+import { Coins } from "lucide-react";
 const Home = () => {
-  const [openModal, setOpenModal] = useState(false)
-  
-  const userData = useSelector((store)=>store.user.userData);
+  const [openModal, setOpenModal] = useState(false);
+
+  const userData = useSelector((store) => store.user.userData);
+  console.log(userData);
 
   const highlights = [
     {
@@ -20,9 +21,8 @@ const Home = () => {
     {
       title: "AI Generated Websites",
       description: "Build modern, responsive websites with AI.",
-    }
+    },
   ];
-
 
   return (
     <div className="relative min-h-screen bg-[#040404] text-white overflow-hidden">
@@ -38,15 +38,48 @@ const Home = () => {
             <div className="hidden md:inline text-sm text-zinc-400 hover:text-white cursor-pointer">
               Pricing
             </div>
-
-          
-
-         {!userData ? <button className="px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10 text-sm cursor-pointer" onClick={()=>setOpenModal(true)}>
-              Get Started
-            </button>
-            : <div>
-                <img src={userData.avatar || `https://ui-avatars.com/api/?name=${userData.name}`}/>
-              </div>}
+            {userData && (
+              <button
+                className="hidden md:flex gap-2 px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10 text-sm cursor-pointer"
+                onClick={() => setOpenModal(true)}
+              >
+                <Coins></Coins> 
+                {userData.credits} 
+                Credits Left
+              </button>
+            )}
+            {!userData ? (
+              <button
+                className="px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10 text-sm cursor-pointer"
+                onClick={() => setOpenModal(true)}
+              >
+                Get Started
+              </button>
+            ) : (
+              <div>
+                <img
+                  src={
+                    userData.avatar ||
+                    `https://ui-avatars.com/api/?name=${userData.name}`
+                  }
+                  className="border border-blue-800 rounded-full w-12 h-12 cursor-pointer"
+                />
+                <div className="absolute top-15 right-2 shadow-lg p-4 rounded-2xl ">
+                  <p className="text-sm p-2 border-b border-gray-800 text-gray-400 cursor-pointer">
+                    {userData.name}
+                    <br></br>
+                    {userData.email}
+                  </p>
+                  <div className="flex gap-2 text-sm p-2 border-b border-gray-800 text-gray-400 cursor-pointer">
+                    <Coins></Coins>
+                    {userData.credits} 
+                    Credits Left
+                  </div>
+                  <p className="text-sm p-2 border-b border-gray-800 text-gray-400 cursor-pointer">Dashboard</p>
+                  <p className="text-sm p-2 border-b border-gray-800 text-gray-400 cursor-pointer">Logout</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </motion.div>
@@ -70,32 +103,39 @@ const Home = () => {
           Describe your idea and let AI generate a modern, responsive,
           production-ready website.
         </motion.p>
-        <button className="px-10 py-4 rounded-xl bg-white text-black font-semibold hover:scale-105 transition mt-10 cursor-pointer"
-        onClick={()=>setOpenModal(true)}>
+        <button
+          className="px-10 py-4 rounded-xl bg-white text-black font-semibold hover:scale-105 transition mt-10 cursor-pointer"
+          onClick={() => setOpenModal(true)}
+        >
           Get Started
         </button>
       </section>
 
       <section className="max-w-7xl mx-auto px-6 pb-32">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {highlights.map((topics, index) => {
+          {highlights.map((topics, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              className="rounded-2xl bg-white/5 border border-white/10 p-8">
-              <h1 className="text-xl font-semibold mb-3">{topics.title}</h1>
-              <p className="text-sm text-zinc-400">{topics.description}</p>
+              className="rounded-2xl bg-white/5 border border-white/10 p-8"
+            >
+              <h1 className="text-xl font-semibold mb-3">{topics?.title}</h1>
+              <p className="text-sm text-zinc-400">{topics?.description}</p>
             </motion.div>
-          })}
+          ))}
         </div>
       </section>
 
       <footer>
-        &copy; {new Date().getFullYear()} SiteCraft AI
+        <div className="text-center">
+          <p>&copy; {new Date().getFullYear()} SiteCraft AI</p>
+        </div>
       </footer>
 
-     {openModal && <LoginModal openmod={openModal} onClose={()=>setOpenModal(false)} />}
+      {openModal && (
+        <LoginModal openmod={openModal} onClose={() => setOpenModal(false)} />
+      )}
     </div>
   );
 };
